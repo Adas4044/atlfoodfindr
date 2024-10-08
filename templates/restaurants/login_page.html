@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        {% comment %}/* Style the header container */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Style for the title */
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* Style for the login button */
+        .login-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }{% endcomment %}
+        /* General body styling */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Make sure the body takes up the full viewport height */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f5f5f5; /* Light background */
+            color: #333333; /* Dark text color for contrast */
+            font-family: 'Arial', sans-serif;
+        }
+        /* Header styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        width: 97%;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .header h1 {
+        font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Apply Inter font */
+        font-size: 24px;
+        font-style: italic;
+        margin: 0;
+        color: #007bff; /* Blue color */
+      }
+
+        /* Button styling (Home button) */
+        .header .home-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .header .home-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Container for the form */
+        form {
+            background-color: #ffffff; /* Light card-like background */
+            padding: 40px;
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+            margin-top: 100px;
+        }
+        
+        /* Login to your account form title */
+        .form-title {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            margin-top: 5px; /* Reduce the top margin */
+            margin-bottom: 20px; /* Keep space between the title and the form fields */
+        }
+        
+        /* Styling for the form input labels */
+        label {
+            align-self: flex-start;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #555555; /* Dark gray for label text */
+        }
+        
+        /* Input fields */
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd; /* Light border for input */
+            border-radius: 10px;
+            background-color: #f9f9f9; /* Light gray input background */
+            color: #333333; /* Dark text inside inputs */
+            font-size: 16px;
+        }
+        
+        /* Submit button */
+        button[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Subtext for signup */
+        p {
+            margin-top: 20px;
+            color: #666666; /* Gray for subtext */
+        }
+        
+        /* Link for signup */
+        p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        p a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Header styling */
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333333; /* Dark text for title */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+    </style>
+    <title>Login</title>
+    
+    <!-- Navigation Links -->
+    <div class="header">
+        <h1>Atlanta Food Findr</h1>
+        <a href= "{% url 'landing_page'%}" class="home-btn"> Home </a>
+    </div>
+
+</head>
+<body>
+    
+    <!-- Add CSRF token to the form -->
+    <form method="POST" action="">
+        <h2 class="form-title">Login to Your Account</h2>
+        
+        {% csrf_token %}  <!-- This is necessary for security in Django -->
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <p>Forgot your password? <a href="{% url 'password_reset'%}">Change it here</a></p>
+        
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="{% url 'signup_page' %}">Sign up here</a>.</p>
+
+    <!-- Display any form errors (like invalid credentials) -->
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
